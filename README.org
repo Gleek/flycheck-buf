@@ -1,0 +1,58 @@
+#+title: flycheck-buf
+
+[[https://www.flycheck.org][Flycheck]] syntax checker for Protocol Buffers using [[https://buf.build][buf]] lint.
+
+* Prerequisites
+
+Install =buf= from https://buf.build/docs/installation.
+
+* Installation
+
+** With Elpaca/use-package
+
+#+begin_src emacs-lisp
+(use-package flycheck-buf
+  :ensure (:host github :repo "gleek/flycheck-buf")
+  :after flycheck
+  :config
+  (flycheck-buf-setup))
+#+end_src
+
+** With straight.el
+
+#+begin_src emacs-lisp
+(straight-use-package
+ '(flycheck-buf :type git :host github :repo "gleek/flycheck-buf"))
+(with-eval-after-load 'flycheck
+  (flycheck-buf-setup))
+#+end_src
+
+** Manual
+
+Download =flycheck-buf.el= to your load path and add:
+
+#+begin_src emacs-lisp
+(require 'flycheck-buf)
+(with-eval-after-load 'flycheck
+  (flycheck-buf-setup))
+#+end_src
+
+* Configuration
+
+** Custom root directory
+
+If =buf= needs to resolve imports relative to a different root (where =buf.yaml= lives), set =flycheck-buf-lint-root= via =.dir-locals.el=:
+
+#+begin_src emacs-lisp
+((protobuf-mode . ((flycheck-buf-lint-root . "~/Development/myproject"))))
+#+end_src
+
+** Custom executable path
+
+#+begin_src emacs-lisp
+(setq flycheck-protobuf-buf-lint-executable "/path/to/buf")
+#+end_src
+
+* Verification
+
+Run =M-x flycheck-verify-setup= in a =protobuf-mode= buffer to check that =buf= is detected.
