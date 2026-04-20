@@ -46,9 +46,9 @@ See URL `https://buf.build'."
   :error-patterns
   ((error line-start (file-name) ":" line ":" column ":" (message) line-end))
   :modes protobuf-mode
-  :enabled (lambda () (flycheck-buf-lint-executable))
+  :enabled (lambda () (or flycheck-protobuf-buf-lint-executable (executable-find "buf")))
   :verify (lambda (_checker)
-            (let ((buf (flycheck-buf-lint-executable)))
+            (let ((buf (or flycheck-protobuf-buf-lint-executable (executable-find "buf"))))
               (list (flycheck-verification-result-new
                      :label "buf"
                      :message (if buf (format "Found at %s" buf) "Not found. Install from https://buf.build")
