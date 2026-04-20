@@ -29,8 +29,6 @@
   :group 'flycheck
   :prefix "flycheck-buf-")
 
-(flycheck-def-executable-var protobuf-buf-lint "buf")
-
 (flycheck-def-option-var flycheck-buf-lint-root nil protobuf-buf-lint
   "Root directory for buf lint.
 When set, buf runs from this directory so it can find buf.yaml
